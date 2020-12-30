@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CodePen - Demo Flexbox 3</title>
+        <style>
+             body { padding: Zem;}
+
+            .headerContainer{
+                display: flex;
+                flex-flow: column wrap;
+                align-content: center;
+                background: tomato;
+                font-weight: bold;
+                padding: 10px;
+            }
+
+            .footerContainer {
+                display: flex;
+                flex-flow: column wrap;
+                align-content: center;
+                background: lightgreen;
+                font-weight: bold;
+                padding: 10px;
+            }
+
+            .mainContainer {
+                display: flex;
+                flex-flow: row wrap;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .mainContentItem {
+                text-align: left;
+                background: deepskyblue;
+            }
+
+            article {
+                padding: 10px;
+                margin: 10px;
+                align-content: center;
+                text-align: center;
+                background: aqua;
+            }
+
+            .sideBarLeftItem { background: gold;}
+            .sideBarRightItem { background: hotpink;}
+
+            .sideBarItem { flex: 1 0 0; border: 0px solid green;}
+            .mainContentItem { flex: 3 0px;}
+            .sideBarLeftItem { order: 1; }
+            .mainContentItem { order: 2; }
+            .sideBarRightItem { order: 3;}
+
+        </style>
+    </head>
+    <body>
+        <header class="headerContainer"><h1>HEADER - Sample Flexbox Example</h1></header>
+        <div class="mainContainer">
+            <section class="mainContentItem">
+                <article>
+                    <h2>First article</h2>
+                    <p>Hello First World</p>
+                </article>
+                <article>
+                    <h2>Second article</h2>
+                    <p>Hello Second World</p>
+                </article>
+                <article>
+                    <h2>Third article</h2>
+                    <p>Hello Third World</p>
+                </article>
+            </section>
+            <sidebar class="sideBarItem sideBarLeftItem"><div class="center"><p>Left Side Bar</p></div></sidebar>
+            <sidebar class="sideBarItem sideBarRightItem"><div class="center"><p>Right Side Bar</p></div></sidebar>
+        </div>
+        <footer class="footerContainer"><div class="center"><p>Footer</p></div></footer>
+        <script type="text/javascript"></script>
+    </body>
+</html>
