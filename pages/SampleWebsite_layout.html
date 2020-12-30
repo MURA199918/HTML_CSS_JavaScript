@@ -1,0 +1,77 @@
+<!doctype html>
+<title>Example</title>
+<style>
+  * {
+    box-sizing: border-box; 
+  }
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+  }
+  .headerContainer{
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    background: tomato;
+    font-weight: bold;
+    padding: 10px;
+  }
+  #main {
+    display: flex;
+    flex: 1;
+  }
+  #main > article {
+    flex: 1;
+    order: 1;
+  }
+  #main > nav, 
+  #main > aside {
+    flex: 0 0 20vw;
+  }
+  #main > nav {
+    background: #D7E8D4;
+    order: 3;
+  }
+  #main > aside {
+    background: beige;
+    order: 2;
+  }
+  header, footer {
+    background: yellowgreen;
+    height: 20vh;
+    align-content: center;
+    text-align: center;
+  }
+  header, footer, article, nav, aside {
+    padding: 1em;
+    align-content: center;
+    text-align: center;
+  }
+  .navBar { background: gold;}
+  .asideBar { background: hotpink;}
+  .BarItem { flex: 1 0 0; border: 0px solid green;}
+  .navBar { order: 1; }
+  .asideBar { order: 3; }
+</style>
+<body>
+  <header class="headerContainer"><h1>HEADER - Sample Flexbox Example</h1></header>
+  <div id="main">
+    <article>
+        <h2>First Article</h2>
+        <p>Hello first world</p>
+    </article>
+    <article>
+        <h2>Second Article</h2>
+        <p>Hello second world</p>
+    </article>
+    <article>
+        <h2>Third Article</h2>
+        <p>Hello third world</p>
+    </article>
+    <nav class="BarItem navBar"><div class="center"><p>Nav Bar</p></div></nav>
+    <aside class="BarItem asideBar"><div class="center"><p>Aside Bar</p></div></aside>
+  </div>
+  <footer>Footer</footer>
+</body>
