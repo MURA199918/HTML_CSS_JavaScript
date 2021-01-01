@@ -36,6 +36,17 @@ pwd.addEventListener("input", function () {
     else pwdError.textContent = "Password is Incorrect";
 });
 
+//Validate Password All rules
+const pwd = document.querySelector("#pwd");
+const pwdError = document.querySelector(".pwd-error");
+pwd.addEventListener("input", function () {
+    let passwordRegex = RegExp(
+        "^(?=.*\\d)(?=.*[A-Z])(?=.*\\W)(?!.*\\W\\w*\\W)(?!.*\\s).{8,}$"
+    );
+    if (passwordRegex.test(pwd.value)) pwdError.textContent = "";
+    else pwdError.textContent = "Password is Incorrect";
+});
+
 const salary = document.querySelector('#salary');
 const output = document.querySelector('.salary-output');
 output.textContent = salary.value;
