@@ -12,14 +12,6 @@ class EmployeePayrollData{
     }
     
     //getter and setter method
-    get id() { return this._id; }
-    set id(id) {
-        if(id>=0){
-            this._id = id;
-        }else{
-            throw 'Id is Incorrect';
-        }
-    }
 
     get name() { return this._name; }
     set name(name) {
@@ -29,11 +21,6 @@ class EmployeePayrollData{
         }else{
             throw 'Name is Incorrect';
         }
-    }
-
-    get profilePic() { return this._profilePic; }
-    set profilePic(profilePic) {
-        this._profilePic = profilePic;
     }
 
     get salary() { return this._salary; }
@@ -69,20 +56,12 @@ class EmployeePayrollData{
 
     get startDate() { return this._startDate; }
     set startDate(startDate) {
-        if (startDate != undefined) {
-            if (startDate <= new Date()) {
-                const options = { year: "numeric", month: "long", day: "numeric" };
-                const employeeDate = startDate.toLocaleDateString("en-US", options);
-                this._startDate = employeeDate;
-            }
-            else throw " Please select valid date!";
-        }
+       this._startDate = startDate;
     }
 
     //method
     toString(){
-        return "id=" + this.id + ", name='" + this.name + ", salary=" + this.salary + ", "+
-               "gender=" + this.gender + ", profilePic=" + this.profilePic + ", department=" + this.department +
+        return "name=" + this.name + ", salary=" + this.salary + ", "+ "gender=" + this.gender + ", department=" + this.department +
                 ", startDate=" + this.startDate +", note=" +this.note;
     }
 }
@@ -100,7 +79,7 @@ const month = document.querySelector("#month");
 const dateError = document.querySelector(".date-error");
 [day, month, year].forEach((item) =>
   item.addEventListener("input", function () {
-    if (month.value == 1) {
+    if (month.value == 'February') {
       if (isLeapYear(year.value)) {
         if (day.value > 29) {
           dateError.textContent = "Invalid Date!";
@@ -114,11 +93,17 @@ const dateError = document.querySelector(".date-error");
         else dateError.textContent = "";
       }
     }
-    if (month.value == 3 || month.value == 5 || month.value == 8 || month.value == 10) {
+    else if (month.value == 'April' || month.value == 'June' || month.value == 'September' || month.value == 'November') {
       if (day.value > 30) {
         dateError.textContent = "Invalid Date!";
       } 
       else dateError.textContent = "";
+    }
+    else{
+        if(day.value > 31) {
+            dateError.textContent = "Invalid Date!";
+        }
+        else dateError.textContent = "";
     }
   })
 );
