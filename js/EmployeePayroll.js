@@ -4,14 +4,6 @@ class EmployeePayrollData{
     //constructor
     
     //getter and setter method
-    get id() { return this._id; }
-    set id(id) {
-        if(id>=0){
-            this._id = id;
-        }else{
-            throw 'Id is Incorrect';
-        }
-    }
 
     get name() { return this._name; }
     set name(name) {
@@ -66,8 +58,82 @@ class EmployeePayrollData{
         const options = { year: 'numeric', month: 'long', day: 'numeric'};
         const empDate = this.startDate === undefined ? "undefined" :
                         this.startDate.toLocaleDateString("en-US", options);
-        return "id=" + this.id + ", name='" + this.name + ", salary=" + this.salary + ", "+
+        return "name=" + this.name + ", salary=" + this.salary + ", "+
                "gender=" + this.gender + ", profilePic=" + this.profilePic + ", department=" + this.department +
                 ", startDate=" + empDate +", note=" +this.note;
     }
 }
+
+window.addEventListener('DDMContentLoaded', (event) => {
+    const name = document.querySelector('#name');
+    const textError = document.querySelector('.text-error');
+    name.addEventListener('input', function() {
+        if(name.value.length == 0) {
+            textError.textContent = "";
+            return;
+        }
+        try{
+            (new EmployeePayrollData()).name = name.value;
+            textError.textContent = "";
+        }catch (e) {
+            textError.textContent = e;
+        }
+    });
+
+    const salary = document.querySelector('#salary');
+    const output = document.querySelector('.salary-output');
+    output.textContent = salary.value;
+    salary.addEventListener('input', function() {
+        output.textContent = salary.value;
+    });
+
+    const day = document.querySelector("#day");
+    const year = document.querySelector("#year");
+    const month = document.querySelector("#month");
+    const dateError = document.querySelector(".date-error");
+    [day, month, year].forEach((item) =>
+        item.addEventListener("input", function () {
+            if (month.value == 'February') {
+                if (isLeapYear(year.value)) {
+                    if (day.value > 29) {
+                         dateError.textContent = "Invalid Date!";
+                    } 
+                    else dateError.textContent = "";
+                } 
+                else {
+                    if (day.value > 28) {
+                         dateError.textContent = "Invalid Date!";
+                    } 
+                    else dateError.textContent = "";
+                }
+            }
+            else if (month.value == 'April' || month.value == 'June' || month.value == 'September' || month.value == 'November') {
+                if (day.value > 30) {
+                    dateError.textContent = "Invalid Date!";
+                } 
+                    else dateError.textContent = "";
+            }
+            else{
+                if(day.value > 31) {
+                    dateError.textContent = "Invalid Date!";
+                }
+                else dateError.textContent = "";
+            }
+        })
+    );
+
+    const isLeapYear = (year) => {
+        let result = false;
+        if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                if (year % 400 == 0) {
+                    result = true;
+                }
+            } else {
+                result = true;
+            }
+        }
+        return result;
+    };
+
+})
