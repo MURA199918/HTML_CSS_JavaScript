@@ -12,21 +12,26 @@ const createInnerHtml = () => {
             <td><img class="profile" src="${empPayrollData._profilePic}" alt=""></td>
             <td>${empPayrollData._name}</td>
             <td>${empPayrollData._gender}</td>
-            <td>
-                <div class="dept-label">${empPayrollData._department[0]}</div>
-                <div class="dept-label">${empPayrollData._department[1]}</div>
-            </td>
+            <td>${getDeptHtml(empPayrollData._department)}</td>
             <td>${empPayrollData._salary}</td>
             <td>${empPayrollData._startDate}</td>
             <td>
-                <img name="${empPayrollData._profilePic}" onclick="remove(this)" alt="delete"
+                <img name="${empPayrollData._id}" onclick="remove(this)" alt="delete"
                     src="../assets/icons/delete-black-18dp.svg">
-                <img name="${empPayrollData._profilePic}" onclick="update(this)" alt="edit"
+                <img name="${empPayrollData._id}" onclick="update(this)" alt="edit"
                     src="../assets/icons/create-black-18dp.svg">                       
             </td>
         </tr>
     `;
     document.querySelector('#table-display').innerHTML = innerHtml;
+}
+
+const getDeptHtml = (deptList) => {
+    let deptHtml = '';
+    for(const dept of deptList) {
+        deptHtml = `${deptHtml} <div class='dept-label'>${dept}</div>`
+    }
+    return deptHtml;
 }
 
 const createEmployeePayrollJSON = () => {
@@ -41,7 +46,7 @@ const createEmployeePayrollJSON = () => {
             _salary: '500000',
             _startDate: '29 Oct 2019',
             _note: '',
-            _startDate: new Date().getTime(),
+            _id: new Date().getTime(),
             _profilePic: '../assets/profile-images/Ellipse -2.png'
         },
         {
@@ -53,7 +58,7 @@ const createEmployeePayrollJSON = () => {
             _salary: '400000',
             _startDate: '29 Oct 2019',
             _note: '',
-            _startDate: new Date().getTime() + 1,
+            _id: new Date().getTime() + 1,
             _profilePic: '../assets/profile-images/Ellipse -1.png'
         }
     ];
