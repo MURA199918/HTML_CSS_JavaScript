@@ -226,7 +226,7 @@ const createAndUpdateStorage = () => {
     }else{
         employeePayrollList = [createEmployeePayrollData()]
     }
-    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList))
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 
 const createEmployeePayrollData = (id) => {
