@@ -1,7 +1,10 @@
 let employeePayrollList;
 window.addEventListener('DOMContentLoaded', (event) => {
     employeePayrollList = getEmployeePayrollDataFromStorage();
-    document.querySelector(".emp-count").textContent = employeePayrollList.length;
+    var element = document.querySelector("emp-count");
+    if(element){
+        element.textContent = employeePayrollList.length;
+    }
     createInnerHtml();
     localStorage.removeItem('editEmp');
 });
@@ -16,7 +19,7 @@ const createInnerHtml = () => {
                        "<th>Salary</th><th>Start Date</th><th>Actions</th>";
     if(employeePayrollList.length == 0) return;
     let innerHtml = `${headerHtml}`;
-    for(const empPayrollData of empPayrollList){
+    for(const empPayrollData of employeePayrollList){
         innerHtml = `${innerHtml}
         <tr>
             <td><img class="profile" src="${empPayrollData._profilePic}" alt=""></td>
