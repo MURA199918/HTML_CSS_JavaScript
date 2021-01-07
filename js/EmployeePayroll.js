@@ -5,6 +5,11 @@ class EmployeePayrollData{
     
     //getter and setter method
 
+    get id() { return this._id; }
+    set id(id) {
+        this._id = id;
+    }
+
     get name() { return this._name; }
     set name(name) {
         let nameRegex = RegExp('^[A-Z]{1}[a-z]{3,}$');
@@ -31,10 +36,13 @@ class EmployeePayrollData{
 
     get gender() { return this._gender; }
     set gender(gender) {
-        if(gender=='M' || gender=='F'){
-            this._gender = gender;
-        }else{
-            throw 'Gender is Invalid';
+        if (gender != undefined) {
+            let genderRegex = RegExp('^(male|female)$');
+            if (genderRegex.test(gender)) {
+                this._gender = gender;
+            } else {
+                throw "Gender incorrect";
+            }
         }
     }
 
@@ -50,17 +58,21 @@ class EmployeePayrollData{
 
     get startDate() { return this._startDate; }
     set startDate(startDate) {
-       this.startDate = startDate;
+        if (startDate != undefined) {
+            if (startDate <= new Date()) {
+                const options = { year: "numeric", month: "long", day: "numeric" };
+                const employeeDate = startDate.toLocaleDateString("en-US", options);
+                this._startDate = employeeDate;
+            }
+            else throw " Please select the valid date!";
+        }
     }
 
     //method
     toString(){
-        const options = { year: 'numeric', month: 'long', day: 'numeric'};
-        const empDate = this.startDate === undefined ? "undefined" :
-                        this.startDate.toLocaleDateString("en-US", options);
-        return "name=" + this.name + ", salary=" + this.salary + ", "+
+        return "id="+ this.id + ", name=" + this.name + ", salary=" + this.salary + ", "+
                "gender=" + this.gender + ", profilePic=" + this.profilePic + ", department=" + this.department +
-                ", startDate=" + empDate +", note=" +this.note;
+                ", startDate=" + this.startDate +", note=" +this.note;
     }
 }
 
@@ -79,63 +91,63 @@ window.addEventListener('DDMContentLoaded', (event) => {
             textError.textContent = e;
         }
     });
+})
 
-    const salary = document.querySelector('#salary');
-    const output = document.querySelector('.salary-output');
+const salary = document.querySelector('#salary');
+const output = document.querySelector('.salary-output');
+output.textContent = salary.value;
+salary.addEventListener('input', function() {
     output.textContent = salary.value;
-    salary.addEventListener('input', function() {
-        output.textContent = salary.value;
-    });
+});
 
-    const day = document.querySelector("#day");
-    const year = document.querySelector("#year");
-    const month = document.querySelector("#month");
-    const dateError = document.querySelector(".date-error");
-    [day, month, year].forEach((item) =>
-        item.addEventListener("input", function () {
-            if (month.value == 'February') {
-                if (isLeapYear(year.value)) {
-                    if (day.value > 29) {
-                         dateError.textContent = "Invalid Date!";
-                    } 
-                    else dateError.textContent = "";
+const day = document.querySelector("#day");
+const year = document.querySelector("#year");
+const month = document.querySelector("#month");
+const dateError = document.querySelector(".date-error");
+[day, month, year].forEach((item) =>
+    item.addEventListener("input", function () {
+        if (month.value == 'February') {
+            if (isLeapYear(year.value)) {
+                if (day.value > 29) {
+                     dateError.textContent = "Invalid Date!";
                 } 
-                else {
-                    if (day.value > 28) {
-                         dateError.textContent = "Invalid Date!";
-                    } 
-                    else dateError.textContent = "";
-                }
-            }
-            else if (month.value == 'April' || month.value == 'June' || month.value == 'September' || month.value == 'November') {
-                if (day.value > 30) {
-                    dateError.textContent = "Invalid Date!";
+                else dateError.textContent = "";
+            } 
+            else {
+                if (day.value > 28) {
+                     dateError.textContent = "Invalid Date!";
                 } 
-                    else dateError.textContent = "";
-            }
-            else{
-                if(day.value > 31) {
-                    dateError.textContent = "Invalid Date!";
-                }
                 else dateError.textContent = "";
             }
-        })
-    );
+        }
+        else if (month.value == 'April' || month.value == 'June' || month.value == 'September' || month.value == 'November') {
+            if (day.value > 30) {
+                dateError.textContent = "Invalid Date!";
+            } 
+                else dateError.textContent = "";
+        }
+        else{
+            if(day.value > 31) {
+                dateError.textContent = "Invalid Date!";
+            }
+            else dateError.textContent = "";
+        }
+    })
+);
 
-    const isLeapYear = (year) => {
-        let result = false;
-        if (year % 4 == 0) {
-            if (year % 100 == 0) {
-                if (year % 400 == 0) {
-                    result = true;
-                }
-            } else {
+const isLeapYear = (year) => {
+    let result = false;
+    if (year % 4 == 0) {
+        if (year % 100 == 0) {
+            if (year % 400 == 0) {
                 result = true;
             }
+        } else {
+            result = true;
         }
-        return result;
-    };
-})
+    }
+    return result;
+};
 
 const save = () => {
     try {
@@ -170,8 +182,10 @@ const createEmployeePayroll = () => {
     employeePayrollData.department = getSelectedValues('[name=department]');
     employeePayrollData.salary = getInputValueById('#salary');
     employeePayrollData.note = getInputValueById('#notes');
-    let date = getInputValueById('#day')+" "+getInputValueById('#month')+" "+getInputValueById('#year');
-    employeePayrollData.date = Date.parse(date);
+    let day = getInputValueById('#day');
+    let month = getInputValueById('#month');
+    let year = getInputValueById('#year');
+    employeePayrollData.startDate = new Date(year, month, day);
     alert(employeePayrollData.toString());
     return employeePayrollData;
 }

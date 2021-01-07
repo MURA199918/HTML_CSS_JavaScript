@@ -7,7 +7,6 @@
     <link href="../css/payrollform.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script defer src="../js/EmployeePayroll.js"></script>
-    <script defer src="../js/payrollHomePage.js"></script>
 </head>
 <body>
     <header class="header-content header">
@@ -25,6 +24,7 @@
             <div class="row-content">
                 <label class="label text" for="name">Name</label>
                 <input class="input" type="text" id="name" name="name" placeholder="Your Name.." required>
+                <error-output class="text-error" for="text"></error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="profile">Profile image</label>
@@ -45,6 +45,7 @@
                     <input type="radio" id="profile4" name="profile" value="../assets/profile-images/Ellipse-7.png" required>
                     <img class="profile" id="image4" src="../assets/profile-images/Ellipse -7.png">
                   </label>
+                  <error-output class="text-error" for="text"></error-output>
                 </div>
             </div>
             <div class="row-content">
@@ -54,27 +55,30 @@
                   <label class="text" for="male">Male</label>
                   <input type="radio" id="female" name="gender" value="female">
                   <label class="text" for="female">Female</label>
+                  <error-output class="text-error" for="text"></error-output>
                 </div>
             </div>
             <div class="row-content">
                 <label class="label text" for="department">Department</label>
                 <div>
-                  <input class="checkbox" type="checkbox" id="hr" name="hr" value="HR">
+                  <input class="checkbox" type="checkbox" id="hr" name="department" value="HR">
                   <label class="text" for="hr">HR</label>
-                  <input class="checkbox" type="checkbox" id="sales" name="sales" value="Sales">
+                  <input class="checkbox" type="checkbox" id="sales" name="department" value="Sales">
                   <label class="text" for="sales">Sales</label>
-                  <input class="checkbox" type="checkbox" id="finance" name="finance" value="Finance">
+                  <input class="checkbox" type="checkbox" id="finance" name="department" value="Finance">
                   <label class="text" for="finance">Finance</label>
-                  <input class="checkbox" type="checkbox" id="engineer" name="engineer" value="Engineer">
+                  <input class="checkbox" type="checkbox" id="engineer" name="department" value="Engineer">
                   <label class="text" for="engineer">Engineer</label>
-                  <input class="checkbox" type="checkbox" id="others" name="others" value="Others">
+                  <input class="checkbox" type="checkbox" id="others" name="department" value="Others">
                   <label class="text" for="others">Others</label>
                 </div>
+                <error-output class="text-error" for="text"></error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="salary">Choose Your Salary: </label>
                 <input class="input" type="range" name="salary" id="salary" min="300000" max="500000" step="100" value="400000">
                 <output class="salary-output text" for="salary">400000</output>
+                <error-output class="text-error" for="text"></error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="startDate">Start Date</label>
@@ -134,6 +138,7 @@
                     <option value="2016">2016</option>
                   </select>
                 </div>
+                <error-output class="date-error" for="startDate"></error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="notes">Notes</label>
