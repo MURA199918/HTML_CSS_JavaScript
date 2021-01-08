@@ -43,20 +43,18 @@ const getDeptHtml = (deptList) => {
 }
 
 const remove = (node) => {
-    let empPayrollData = employeePayrollList.find(empData => empData._id == node.id);
-    if(!empPayrollData) return;
-    const index = employeePayrollList
-                  .map(empData => empData._id)
-                  .indexOf(empPayrollData._id);
+    let employeePayrollData = employeePayrollList.find(empData => empData._id == node.id);
+    if(!employeePayrollData) return;
+    const index = employeePayrollList.map(empData => empData._id).indexOf(employeePayrollData._id);
     employeePayrollList.splice(index, 1);
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
     document.querySelector(".emp-count").textContent = employeePayrollList.length;
     createInnerHtml();
-}
+} 
 
 const update = (node) => {
-    let empPayrollData = employeePayrollList.find(empData => empData._id == node.id);
-    if(!empPayrollData) return;
-    localStorage.setItem('editEmp', JSON.stringify(empPayrollData));
+    let employeePayrollData = employeePayrollList.find(empData => empData._id==node.id);
+    if(!employeePayrollData) return;
+    localStorage.setItem('editEmp',JSON.stringify(employeePayrollData));
     window.location.replace(site_properties.add_emp_payroll_page);
 }
