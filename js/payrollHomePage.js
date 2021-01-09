@@ -13,10 +13,10 @@ const getEmployeePayrollDataFromStorage = () =>{
 
 const createInnerHtml = () => {
     const headerHtml = "<tr><th></th><th>Name</th><th>Gender</th><th>Department</th><th>Salary</th><th>StartDate</th><th>Actions</th></tr>";
-    let innerHtml = `${headerHtml}`;
+    
     if(employeePayrollList.length == 0) return;
+    let innerHtml = `${headerHtml}`;
     for(const empPayrollData of employeePayrollList){
-        empPayrollData._id = employeePayrollList.indexOf(empPayrollData);
         innerHtml = `${innerHtml}
         <tr> 
             <td><img class = "profile" src = "${empPayrollData._profilePic}" alt = ""></td>
