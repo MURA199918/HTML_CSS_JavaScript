@@ -1,0 +1,40 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "_name": "abc",
+      "_gender": "female",
+      "_department": [
+        "Sales"
+      ],
+      "_salary": "40000",
+      "_startDate": "29 Oct 2019",
+      "_note": "hello abc",
+      "_profilePic": "../assets/profile-images/Ellipse -1.png"
+    },
+    {
+      "id": 2,
+      "_name": "Bill Gates",
+      "_gender": "male",
+      "_department": [
+        "Engineer"
+      ],
+      "_salary": "50000",
+      "_startDate": "29 Oct 2019",
+      "_note": "hello gates",
+      "_profilePic": "../assets/profile-images/Ellipse -3.png"
+    },
+    {
+      "_name": "Aparna Singh",
+      "_gender": "female",
+      "_department": [
+        "Sales"
+      ],
+      "_salary": "40000",
+      "_startDate": "29 Oct 2019",
+      "_note": "",
+      "_profilePic": "../assets/profile-images/Ellipse -1.png",
+      "id": 3
+    }
+  ]
+}
