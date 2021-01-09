@@ -1,12 +1,7 @@
 class EmployeePayrollData {
 
-  get id(){
-    return this._id;
-  }
+  id;
 
-  set id(id) {
-    this._id = id;
-  }
   get name() {
       return this._name;
   }
@@ -86,7 +81,8 @@ name.addEventListener('input', function () {
     return;
   }
   try {
-    (new EmployeePayrollData()).name = name.value;
+    //(new EmployeePayrollData()).name = name.value;
+    checkName(name.value);
     setTextValue('.text-error',"");
   } catch (e) {
     setTextValue('.text-error',e);
@@ -98,7 +94,8 @@ date.addEventListener('input',function(){
     let startDate = getInputValueById('#day') + " " + getInputValueById('#month') + " " +
     getInputValueById('#year');
     try {
-      (new EmployeePayrollData()).startDate = new Date(Date.parse(startDate));
+      //(new EmployeePayrollData()).startDate = new Date(Date.parse(startDate));
+      checkStartDate(new Date(Date.parse(startDate)));
       setTextValue('.date-error',"");
     } catch (e) {
       setTextValue('.date-error',e);
@@ -112,8 +109,22 @@ salary.addEventListener('input', function () {
 output.textContent = salary.value;
 });
 
+document.querySelector('#cancelButton').href = site_properties.home_page;
 checkForUpdate();
 });
+
+const checkName = (name) => {
+  let nameRegex = RegExp('^[A-Z]{1}[a-zA-Z\\s]{2,}$');
+  if(!nameRegex.test(name)) throw 'Name is Incorrect!';
+}
+
+const checkStartDate = (startDate) => {
+  let now = new Date();
+  if(startDate > now) throw 'Start Date is a Future Date';
+  var diff = Math.abs(now.getTime() - startDate.getTime());
+  if(diff / (1000 * 60 * 60 * 24) > 30)
+      throw 'Start Date is beyond 30 days!';
+}
 
 const checkForUpdate = () => {
   const employeePayrollJson = localStorage.getItem('editEmp');
@@ -167,15 +178,16 @@ const save = (event) => {
 }
 
 const setEmployeePayrollObject = () => {
-  employeePayrollObj.name = getInputValueById('#name');
-  employeePayrollObj.profilePic = getSelectedValues('[name=profile]').pop();
-  employeePayrollObj.gender = getSelectedValues('[name=gender]').pop();
-  employeePayrollObj.department = getSelectedValues('[name=department]');
-  employeePayrollObj.salary = getInputValueById('#salary');
-  employeePayrollObj.note = getInputValueById('#notes');
+  employeePayrollObj.id = createNewEmployeeID();
+  employeePayrollObj._name = getInputValueById('#name');
+  employeePayrollObj._profilePic = getSelectedValues('[name=profile]').pop();
+  employeePayrollObj._gender = getSelectedValues('[name=gender]').pop();
+  employeePayrollObj._department = getSelectedValues('[name=department]');
+  employeePayrollObj._salary = getInputValueById('#salary');
+  employeePayrollObj._note = getInputValueById('#notes');
   let date = getInputValueById('#day') + " " + getInputValueById('#month') + " " +
              getInputValueById('#year');
-  employeePayrollObj.startDate = date;
+  employeePayrollObj._startDate = date;
 }
 
 const createEmployeePayroll = () => {
@@ -215,18 +227,18 @@ const getSelectedValues = (propertyValue) => {
 const createAndUpdateStorage = () => {
   let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
   if(employeePayrollList){
-    let empPayrollData = employeePayrollList.find(empData => empData._id=employeePayrollObj._id);
+    let empPayrollData = employeePayrollList.find(empData => empData.id=employeePayrollObj.id);
     if(!empPayrollData){
-      employeePayrollList.push(createEmployeePayrollData());
+      employeePayrollList.push(employeePayrollObj);
     }else{
       const index = employeePayrollList
-                  .map(empData => empData._id)
-                  .indexOf(empPayrollData._id);
-      employeePayrollList.splice(index,1,createEmployeePayrollData(empPayrollData._id));
+                  .map(empData => empData.id)
+                  .indexOf(empPayrollData.id);
+      employeePayrollList.splice(index,1,employeePayrollObj);
 
     }      
   } else{
-      employeePayrollList = [createEmployeePayrollData()];
+      employeePayrollList = [employeePayrollObj];
   }
   alert(employeePayrollList.toString());
   localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
